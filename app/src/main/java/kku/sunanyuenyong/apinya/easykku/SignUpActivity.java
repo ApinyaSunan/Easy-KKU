@@ -1,6 +1,9 @@
 package kku.sunanyuenyong.apinya.easykku;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,6 +19,7 @@ public class SignUpActivity extends AppCompatActivity {
     private ImageView imageView;
     private Button button;
     private String nameString, phoneString, userString, passwordString;
+    private Uri uri; // โยน Data กลับมา แล้วเราต้องมาคัดว่าอันไหนคือรูปภาพอีกที
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,12 +83,24 @@ public class SignUpActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, //ได้ 0 มาจากข้างบน
                                     int resultCode, // ได้ OK ต้องเลือกภาพถึงจะสำเร็จ
-                                    Intent data) {
+                                    Intent data) { //ได้ข้อมูลภาพ
         super.onActivityResult(requestCode, resultCode, data); //พอส่ง user ไปเลือกภาพ แล้วมันจะกลับมาทำตรงนี้ต่อ
 
         if ((requestCode == 0) && (resultCode == RESULT_OK)) {
 
             Log.d("12novV1","Result OK");
+
+            //Show Image
+            uri = data.getData();
+            try {
+
+                Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver()
+                        .openInputStream(uri));
+                imageView.setImageBitmap(bitmap);
+
+            } catch (Exception e) { // ถ้า try error มันจะส่ง error มาให้ e จัดการกับ error
+                e.printStackTrace();
+            }
 
         }// if
 
