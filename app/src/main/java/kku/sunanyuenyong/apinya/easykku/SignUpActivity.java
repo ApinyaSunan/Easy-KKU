@@ -23,6 +23,7 @@ public class SignUpActivity extends AppCompatActivity {
     private String nameString, phoneString, userString, passwordString,
             imagePathString, imageNameString;
     private Uri uri; // โยน Data กลับมา แล้วเราต้องมาคัดว่าอันไหนคือรูปภาพอีกที
+    private boolean aBoolean = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +59,14 @@ public class SignUpActivity extends AppCompatActivity {
                             R.drawable.doremon48,"มีช่องว่าง","กรุณากรอกให้ครบทุกช่อง");
                     //M ใหญ่ Class m เล็ก object
                     myAlert.myDialog();
+                } else if (aBoolean) {
+                    //Non Choose Image
+                    MyAlert myAlert = new MyAlert(SignUpActivity.this, R.drawable.nobita48,
+                            "ยังไม่เลือกรูป","กรุณาเลือกรูปด้วยค่ะ");
+                    myAlert.myDialog();
+                } else {
+                    //Choose Image OK
+                    upLoadImageToServer();
                 }
 
             }//onClick
@@ -80,6 +89,10 @@ public class SignUpActivity extends AppCompatActivity {
 
     }// Main Method
 
+    private void upLoadImageToServer() { //signup ให้สร้าง method นอก method ถ้า annonymous มันจะสร้างใน คนอื่นเรียกใช้ไม่ได้
+
+    }
+
     // Override ดึง method สำเร็จรูปมาทำในเครื่องคุณ
 
 
@@ -92,6 +105,7 @@ public class SignUpActivity extends AppCompatActivity {
         if ((requestCode == 0) && (resultCode == RESULT_OK)) {
 
             Log.d("12novV1","Result OK");
+            aBoolean= false; // ถ้ามีการเลือกภาพสมบูรณ์แบบ จะเปลี่ยนเป็น false
 
             //Show Image
             uri = data.getData();
