@@ -1,9 +1,11 @@
 package kku.sunanyuenyong.apinya.easykku;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,7 +20,8 @@ public class SignUpActivity extends AppCompatActivity {
     private EditText nameEditText, phoneEditText, userEditText, passwordEditText;
     private ImageView imageView;
     private Button button;
-    private String nameString, phoneString, userString, passwordString;
+    private String nameString, phoneString, userString, passwordString,
+            imagePathString, imageNameString;
     private Uri uri; // โยน Data กลับมา แล้วเราต้องมาคัดว่าอันไหนคือรูปภาพอีกที
 
     @Override
@@ -102,7 +105,30 @@ public class SignUpActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
+            //Find Path of Image
+            imagePathString = myFindPath(uri); //method นี้จะกรองให้ได้รูปภาพขึ้นมา
+            Log.d("12novV1","imagePath ==>"+imagePathString);
+
+
         }// if
 
     } // onActivityResult
+
+    private String myFindPath(Uri uri) {
+
+        String result = null;
+        String[] strings = {MediaStore.Images.Media.DATA}; // กรองรูปออกมาได้
+        Cursor cursor = getContentResolver().query(uri, strings, null, null, null);
+
+        if (cursor != null) { // ถ้า boolean มี data
+            //ถ้ามีหลายรูป ให้ค้นหาว่าเป็น 0 or 1 or 2 or 3 ect.
+            cursor.moveToFirst();
+            int index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA); //รูปภาพที่เลือก
+            result = cursor.getString(index); // ได้ path ของรูปภาพ
+        } else {
+            result = uri.getPath(); //ถ้ามีรูปแค่รูปเดียว ก็เอารูปนั้นเลย
+        }
+
+        return result;
+    }
 }// Main Class
