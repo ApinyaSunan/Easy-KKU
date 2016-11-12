@@ -59,7 +59,8 @@
                 android:id="@+id/editText"
                 android:layout_margin="5dp"
                 android:textColor="@android:color/holo_red_light"
-                android:textColorHint="@color/colorAccent" />
+                android:textColorHint="@color/colorAccent"
+                android:hint="Name :" />
 
             <EditText
                 android:layout_width="match_parent"
@@ -69,7 +70,8 @@
                 android:layout_margin="5dp"
                 android:inputType="number"
                 android:textColor="@android:color/holo_red_light"
-                android:textColorHint="@color/colorAccent" />
+                android:textColorHint="@color/colorAccent"
+                android:hint="Phone :" />
 
             <EditText
                 android:layout_width="match_parent"
@@ -79,7 +81,8 @@
                 android:id="@+id/editText3"
                 android:layout_margin="5dp"
                 android:textColor="@android:color/holo_red_light"
-                android:textColorHint="@color/colorAccent" />
+                android:textColorHint="@color/colorAccent"
+                android:hint="User :" />
 
             <EditText
                 android:layout_width="match_parent"
@@ -89,7 +92,8 @@
                 android:id="@+id/editText4"
                 android:layout_margin="5dp"
                 android:textColor="@android:color/holo_red_light"
-                android:textColorHint="@color/colorAccent" />
+                android:textColorHint="@color/colorAccent"
+                android:hint="Password :" />
         </LinearLayout>
     </LinearLayout>
 
