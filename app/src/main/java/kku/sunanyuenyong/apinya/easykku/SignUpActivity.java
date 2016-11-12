@@ -109,6 +109,11 @@ public class SignUpActivity extends AppCompatActivity {
             imagePathString = myFindPath(uri); //method นี้จะกรองให้ได้รูปภาพขึ้นมา
             Log.d("12novV1","imagePath ==>"+imagePathString);
 
+            //find Name of Image
+            imageNameString = imagePathString.substring(imagePathString.lastIndexOf("/"));
+            //หา index สุดท้าย ที่ถูกตัดด้วย /
+            Log.d("12novV1","imageName ==>"+imageNameString);
+
 
         }// if
 
