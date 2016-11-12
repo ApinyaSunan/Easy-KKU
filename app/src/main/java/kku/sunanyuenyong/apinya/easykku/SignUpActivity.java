@@ -1,5 +1,6 @@
 package kku.sunanyuenyong.apinya.easykku;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -55,6 +56,37 @@ public class SignUpActivity extends AppCompatActivity {
             }//onClick
         });
 
+        // Image Controller ทำให้รูปภาพสามารถคลิกได้
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                //เดี๋ยวมันจะไปทำที่โปรแกรมอื่น แล้วโปรแกรมนั้นจะโยนค่ากลับมา คือเราจะโยนไป Gallery
+                intent.setType("image/*"); // เมื่อไหร่ก็ตามที่กดปุ่มภาพ ให้เปิดโปรแกรมที่เปิดภาพได้ แล้วให้ user เลือกโปรแกรม
+                //ถ้าเป็น video ก็ video/*
+                startActivityForResult(Intent.createChooser(intent,"โปรดเลือกแอปดูภาพ"),0);
+                // บางทีมีรูปภาพมากกว่า 1 รูป เป็นตัว request code ใส่ 0 น่าจะใส่ได้แค่รูปเดียว
+
+            } // onClick
+        });
 
     }// Main Method
+
+    // Override ดึง method สำเร็จรูปมาทำในเครื่องคุณ
+
+
+    @Override
+    protected void onActivityResult(int requestCode, //ได้ 0 มาจากข้างบน
+                                    int resultCode, // ได้ OK ต้องเลือกภาพถึงจะสำเร็จ
+                                    Intent data) {
+        super.onActivityResult(requestCode, resultCode, data); //พอส่ง user ไปเลือกภาพ แล้วมันจะกลับมาทำตรงนี้ต่อ
+
+        if ((requestCode == 0) && (resultCode == RESULT_OK)) {
+
+            Log.d("12novV1","Result OK");
+
+        }// if
+
+    } // onActivityResult
 }// Main Class
